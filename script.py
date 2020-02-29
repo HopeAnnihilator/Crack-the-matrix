@@ -13,17 +13,21 @@ tmplist = []
 key = 0
 
 # EncodedMsg = np.array([
-#                 [25, -33, -53, 27, -31, -84],
-#                 [8, -23, 40, -15, 15, 44],
-#                 [6, -31, 107, 15, -30, 24]
+#                 [25, -33, -53, 27, -31, -84, 8, -23, 40],
+#                 [-15, 15, 44, 6, -31, 107, 15, -30, 24]
 #                 ])
 EncodedMsg = np.array([
-                [33, 29],
-                [69, 65],
+                [25, -33, -53, 27, -31, -84], 
+                [8, -23, 40, -15, 15, 44],
+                [6, -31, 107, 15, -30, 24]
                 ])
+# EncodedMsg = np.array([
+#                 [33, 29],
+#                 [69, 65],
+#                 ])
 # size = input("Input matrix size as a total number of values in matrix: ")
 # depth = input("Range to test (positive integer): ")
-size = 4
+size = 9
 depth = 10
 
 try:
@@ -55,44 +59,56 @@ def makekey():
             x = 1
     key = np.array(fulllist)
     try:
-        inverse = np.linalg.inv(key)
-        outputinverse = (inverse.dot(EncodedMsg))
+        outputinverse = []
+        inverse = []
+        try:
+            inverse = np.linalg.inv(key)
+            outputinverse = (inverse.dot(EncodedMsg))
+        except:
+            pass
         output = key.dot(EncodedMsg)
         flipinverse = 0
         flip = 0
         for line in outputinverse: 
             for item in line:
-                item = int(item)
-                if item < 0 or item > 10:
+                if round(item, 0) != round(item, 1):
+                    flipinverse = 1 
+                    break
+                item = round(item, 0)
+                if item < 0 or item > 26:
                     flipinverse = 1
                     break
         for line in output: 
             for item in line:
-                item = int(item)
-                if item < 0 or item > 10:
+                if round(item, 0) != round(item, 1):
+                    flip = 1 
+                    break
+                item = round(item, 0)
+                if item < 0 or item > 26:
                     flip = 1
                     break
-        if flipinverse == 0:
-            for line in outputinverse:
-                for value in line:
-                    if round(value, 0) == 3.0:
-                        print(outputinverse)
-        #     print(inverse)
-        #     print(outputinverse)
-        #     print('\n\n\n')
-        # if flip == 0:
-        #     print(key)
-        #     print(output)
-        #     print('\n\n\n')
+        if flipinverse == 0 and inverse:
+            print(inverse)
+            print(outputinverse)
+            print('\n')
+        if flip == 0:
+            print(key)
+            print(output)
+            print('\n')
 
     except np.linalg.LinAlgError:
         key = 0
 
 while vadadoom[1] <= depth:
-    if vadadoom[myspot] > depth:
-        for i in range(myspot, size + 1):
-            vadadoom[i] = -depth
-        myspot = myspot - 1
-    for i in range(myspot, size + 1):
-        vadadoom[i] = int(vadadoom[i]) + 1
+    while True:
         makekey()
+        try:
+            if vadadoom[myspot] >= depth:
+                vadadoom[myspot] = -depth
+                myspot = myspot -1
+            else:
+                vadadoom[myspot] = vadadoom[myspot] + 1
+                myspot = size
+        except KeyError:
+            exit()
+
