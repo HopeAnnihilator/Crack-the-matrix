@@ -39,7 +39,7 @@ for i in range(1, singularsize + 1):
         vadadoom[trashable] = -depth
         trashable = trashable  + 1
 vadadoom[1] = 1
-vadadoom[2] = -2
+vadadoom[6] = 3
 previousprint = str(vadadoom)
 
 
@@ -103,11 +103,8 @@ def makekey():
 while True:
     makekey()
     try:
-        if myspot == 2:
-            now = time.time()
-            print('Known Values Reached')
-            print('Program ran for: ' + str(round((now - start), 3)) + ' seconds\n')
-            exit()
+        if myspot == 1 or myspot == 6:
+            myspot = myspot - 1
         elif vadadoom[myspot] >= depth:
             vadadoom[myspot] = -depth
             myspot = myspot -1
@@ -115,4 +112,6 @@ while True:
             vadadoom[myspot] = vadadoom[myspot] + 1
             myspot = size
     except KeyError:
+        now = time.time()
+        print('Program ran for: ' + str(round((now - start), 3)) + ' seconds\n')
         exit()

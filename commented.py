@@ -55,7 +55,7 @@ for i in range(1, singularsize + 1):
         trashable = trashable  + 1
 # replace the 2 known numbers in matrix
 vadadoom[1] = 1
-vadadoom[2] = -2
+vadadoom[6] = 3
 # save original matrix to avoid duplicate output later and save time
 previousprint = str(vadadoom)
 
@@ -171,12 +171,9 @@ while True:
     makekey()
     # attempt to run program
     try:
-        # if program reaches the 2 known values (first 2) then it should stop running
-        if myspot == 2:
-            now = time.time()
-            print('Known Values Reached')
-            print('Program ran for: ' + str(round((now - start), 3)) + ' seconds\n')
-            exit()
+        # if program reaches a known value, skip to next value
+        if myspot == 1 or myspot == 6:
+            myspot = myspot - 1
         # if current value is greater than or equal to max value of range set it to the minimum value and move 1 spot forward in dictionary
         # this is why the keys are numbers, to make it easy to traverse them no matter what size the dictionary is
         elif vadadoom[myspot] >= depth:
@@ -188,6 +185,8 @@ while True:
             myspot = size
     # the first key is 1, if the program reaches 0 it will exit
     except KeyError:
+        now = time.time()
+        print('Program ran for: ' + str(round((now - start), 3)) + ' seconds\n')
         exit()
 
 
