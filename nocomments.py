@@ -99,6 +99,7 @@ while x > 0:
     if location in badlist:
         movespot()
     elif value >= depth:
+        makekey()
         matrix[x - 1][y - 1] = -depth
         movespot()
     else:
