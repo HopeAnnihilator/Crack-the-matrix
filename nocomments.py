@@ -93,18 +93,18 @@ def movespot():
         y = singularsize
         x = x - 1
 
+makekey()
 while x > 0:
     location = x ** 7 + y ** 2
     value = matrix[x - 1][y - 1]
     if location in badlist:
         movespot()
     elif value >= depth:
-        makekey()
         matrix[x - 1][y - 1] = -depth
         movespot()
     else:
-        makekey()
         matrix[x - 1][y - 1] = value + 1
+        makekey()
         x = singularsize
         y = singularsize
 
