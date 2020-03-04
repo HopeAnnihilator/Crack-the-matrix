@@ -158,8 +158,6 @@ while x > 0:
         movespot()
     # check if current value is greater than max value and if so, set to the min range then move to next location
     elif value >= depth:
-        # check for possible key
-        makekey()
         matrix[x - 1][y - 1] = -depth
         movespot()
     # if value is not greater than max and allowed to be changed
