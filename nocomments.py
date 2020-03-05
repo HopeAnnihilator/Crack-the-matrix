@@ -30,7 +30,6 @@ except:
     exit()
 
 badlist = []
-previoustext = str('a')
 x = singularsize
 y = x
 for i in range(0, size):
@@ -42,7 +41,6 @@ badlist.append(137)
 matrix = np.array_split(matrix, 3)
 
 def makekey():  
-    global previoustext
     flip = 0
     try:
         inverse = np.linalg.inv(matrix)
@@ -70,19 +68,16 @@ def makekey():
                     text.append(chr(160))
                 else:
                     text.append(chr(item + 96))
-        newtext = str(''.join(text).title())
-        if newtext != previoustext:
-            previoustext = newtext
-            now = time.time()
-            print('Found in: ' + str(round((now - start), 3)) + ' seconds')
-            print('Key')
-            print(np.array(matrix))
-            print('Inverse')
-            print(inverse)
-            print('Decoded Matrix')
-            print(outputinverse)
-            print('Decoded Text: ' + newtext)
-            print('\n')
+        now = time.time()
+        print('Found in: ' + str(round((now - start), 3)) + ' seconds')
+        print('Key')
+        print(np.array(matrix))
+        print('Inverse')
+        print(inverse)
+        print('Decoded Matrix')
+        print(outputinverse)
+        print('Decoded Text: ' + str(''.join(text).title()))
+        print('\n')
 
 
 def movespot():
